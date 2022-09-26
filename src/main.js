@@ -1,12 +1,9 @@
-import {createApp} from 'vue'
-// 全局引入ElementUi
-// import ElementPlus from 'element-plus'
-// import 'element-plus/dist/index.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import stores from 'store';
 
-import App from './App.vue'
-import router from './router'
-
-const app = createApp(App)
+const app = createApp(App);
 
 // 完全引入图标库
 // import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -15,6 +12,7 @@ const app = createApp(App)
 // }
 
 app
-    // .use(ElementPlus)
-    .use(router)
-    .mount('#app')
+// .use(ElementPlus)
+  .use(router)
+  .use(stores)
+  .mount('#app');
