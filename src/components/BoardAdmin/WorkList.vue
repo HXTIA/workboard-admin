@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 export default {
   name: 'WorkList',
@@ -30,8 +30,15 @@ export default {
     // 作业列表
     const workList = reactive(props.workList);
 
-    // 设置作业列表高度
-    const height = window.innerHeight - 180 + 'px';
+    // 设置作业列表初始高度
+    const height = ref(window.innerHeight - 180 + 'px');
+
+    // 动态设置作业列表高度
+    onMounted(() => {
+      window.onresize = () => {
+        height.value = window.innerHeight - 180 + 'px';
+      };
+    });
 
     // 点击作业列表
     const clickWorkList = (index) => {
