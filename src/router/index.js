@@ -4,18 +4,25 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../components/BoardAdmin.vue'),
+    component: () => import('@/view/MainLayout.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'workitem',
+        component: () => import('../components/work/index.vue'),
+      },
+      {
+        path: '/UserFeedback',
+        name: 'UserFeedback',
+        component: () => import('../components/UserFeedback.vue'),
+      },
+      {
+        path: '/AboutUs',
+        name: 'AboutUs',
+        component: () => import('../components/AboutUs.vue'),
+      }
+    ]
   },
-  {
-    path: '/UserFeedback',
-    name: 'UserFeedback',
-    component: () => import('../components/UserFeedback.vue'),
-  },
-  {
-    path: '/AboutUs',
-    name: 'AboutUs',
-    component: () => import('../components/AboutUs.vue'),
-  }
 ];
 
 const router = createRouter({

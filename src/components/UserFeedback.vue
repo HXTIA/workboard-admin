@@ -2,12 +2,6 @@
   <div>用户反馈</div>
 </template>
 
-<script>
-export default {
-  name: 'UserFeedback'
-};
-</script>
+<script setup></script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
