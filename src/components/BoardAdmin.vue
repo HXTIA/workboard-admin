@@ -27,25 +27,11 @@
         <el-container>
           <!--左侧-->
           <el-aside class="boardAdmin_aside">
-            <el-timeline>
-
-              <el-scrollbar :height="height" class="boardAdmin_scrollbar">
-                <el-timeline-item
-                    v-for="(item,index) in workList"
-                    :key="index"
-                    :timestamp="item.time"
-                    :color="timelineColor[index%(timelineColor.length)]"
-                    placement="top">
-                  <el-card class="boardAdmin_timeline_card" @click="clickWorkList(index)">
-                    <h4>{{ item.title }}</h4>
-                    <p>{{ item.text }}</p>
-                  </el-card>
-                </el-timeline-item>
-                <el-timeline-item placement="top"></el-timeline-item>
-
-              </el-scrollbar>
-
-            </el-timeline>
+            <WorkList
+              :workDetails="workDetails"
+              :workList="workList"
+              @clickWorkList="clickWorkList"
+            ></WorkList>
           </el-aside>
 
           <!--右侧-->
@@ -208,6 +194,8 @@
 import 'element-plus/es/components/message/style/css';
 import 'element-plus/es/components/message-box/style/css';
 import { ElMessage, ElMessageBox } from 'element-plus';
+import deliveryDetails from '../../utils/WorkList/deliveryDetails';
+import getSystemTime from '../../utils/WorkList/getSystemTime';
 
 import { reactive, ref, nextTick } from 'vue';
 import {
@@ -225,17 +213,6 @@ export default {
   setup() {
     // 搜索内容
     const query = ref('');
-
-    // 获取系统时间
-    const getSystemTime = () => {
-      // 实例化日期类
-      const time = new Date();
-      const str1 = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
-      const hours = time.getHours() < 10 ? '0' + time.getHours() : time.getHours();
-      const minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes();
-      const seconds = time.getSeconds() < 10 ? '0' + time.getSeconds() : time.getSeconds();
-      return str1 + ' ' + hours + ':' + minutes + ':' + seconds;
-    };
 
     // 空表单（用于初始化）
     const emptyForm = reactive({
@@ -359,9 +336,6 @@ export default {
       },
     ]);
 
-    // 设置作业列表高度
-    const height = window.innerHeight - 180 + 'px';
-
     // 作业列表索引
     const cardIndex = ref(-1);
 
@@ -379,31 +353,14 @@ export default {
       ],
     });
 
-    // 传递作业详情信息(由于双向绑定的问题，如果正常赋值会导致两个数据绑定到一起)
-    const deliveryDetails = (a, b) => {
-      a.time = JSON.parse(JSON.stringify(b.time));
-      a.title = JSON.parse(JSON.stringify(b.title));
-      a.text = JSON.parse(JSON.stringify(b.text));
-      a.dynamicTags = JSON.parse(JSON.stringify(b.dynamicTags));
-      a.deadline = JSON.parse(JSON.stringify(b.deadline));
-      a.image = JSON.parse(JSON.stringify(b.image));
-    };
-
     // 点击作业列表
-    const clickWorkList = (index) => {
+    const clickWorkList = (index, workList) => {
       // 保存索引值，显示操作按钮
       cardIndex.value = index;
       showEditAndDelete.value = true;
       // 传递作业详情信息
-      deliveryDetails(workDetails, workList[index]);
+      deliveryDetails(workDetails, workList);
     };
-
-    // 时间轴颜色
-    const timelineColor = reactive([
-      '#FF0000', '#FF7F00', '#FFFF00',
-      '#00FF00', '#0000FF', '#4B0082',
-      '#8B00FF', '#000000', '#FFFFFF',
-    ]);
 
     // 控制编辑对话框的显示与隐藏
     const showDialogForm = ref(false);
@@ -667,10 +624,8 @@ export default {
 
       // 左侧
       workList, // 作业列表
-      height, // 作业列表高度
       cardIndex, // 作业列表索引
       clickWorkList, // 点击获取作业详情
-      timelineColor, // 时间轴颜色
 
       // 右侧
       workDetails, // 作业详情
@@ -720,14 +675,6 @@ export default {
   width: 50%;
   padding: 20px 0;
   border-right: 1px solid #ebeef5;
-}
-
-.boardAdmin_scrollbar .el-timeline-item {
-  margin: 0 20px;
-}
-
-.boardAdmin_timeline_card {
-  cursor: pointer;
 }
 
 /* 编辑和删除按钮 */
