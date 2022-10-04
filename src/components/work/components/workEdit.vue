@@ -6,6 +6,7 @@
         title="作业管理"
         width="90vw"
         top="5vh"
+        :show-close="false"
         :close-on-click-modal="false"
       >
         <el-form :model="form" label-width="120px">
@@ -38,6 +39,7 @@
           <el-form-item label="上传图片">
             <el-upload
               ref="uploadFile"
+              v-model="form.pictureFiles"
               list-type="picture-card"
               :http-request="upload"
               :multiple="true"
@@ -73,13 +75,35 @@
 import 'element-plus/es/components/message/style/css';
 import 'element-plus/es/components/message-box/style/css';
 import { courseClass } from '@/data/work.js';
-import { inject, reactive } from 'vue';
-import request from '@/services';
+import { reactive, defineProps, defineEmits, toRefs, watchEffect } from 'vue';
+// import request from '@/services';
 
-// 接受传递的变量 -> 控制开闭
-const showDialogForm = inject('isShowDialog');
-// 控制关闭模态框
-const changeIsShowDialog = inject('changeIsShowDialog');
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => {}
+  },
+  isCreate: {
+    type: Boolean,
+    default: () => true
+  },
+  isShowDialog: {
+    type: Boolean,
+    default: () => {}
+  }
+});
+
+const { isShowDialog } = toRefs(props);
+
+// eslint-disable-next-line prefer-const
+let showDialogForm = computed({
+  get() {
+    return isShowDialog.value;
+  },
+  set() {}
+});
+
+const emits = defineEmits(['changeIsShowDialog']);
 
 // 表单
 const form = reactive({
@@ -87,7 +111,15 @@ const form = reactive({
   courseId: '',
   detail: '',
   deadline: '',
-  semesterId: ''
+  semesterId: '',
+  pictureFiles: []
+});
+
+// 监视数据变化 -> 理论上讲computed更好，暂时先在此处做临时
+watchEffect(() => {
+  if (props.data.id) {
+    Object.assign(form, props.data);
+  }
 });
 
 // eslint-disable-next-line prefer-const
@@ -117,16 +149,18 @@ const upload = (file) => {
 };
 
 // 提交作业 -> 手动请求
-const onSubmit = () => {
+const onSubmit = async () => {
   console.log(files);
-  request({
-    url: 'http://119.29.157.231:8888/admin/works/create'
-  });
+  // const res = await request({
+  //   url: 'http://119.29.157.231:8888/admin/works/create'
+  // });
+  // console.log(res);
+  console.log(props.isCreate);
 };
 
 // 取消
 const onCancel = () => {
-  changeIsShowDialog();
+  emits('changeIsShowDialog');
 };
 </script>
 

@@ -9,7 +9,7 @@
       @click="clickWorkList(workList.id)"
     >
       <h4>{{ workList.title }}</h4>
-      <p>{{ workList.desc }}</p>
+      <p>{{ workList.detail }}</p>
     </el-card>
   </el-timeline-item>
 </template>

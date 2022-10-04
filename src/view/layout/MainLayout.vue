@@ -11,14 +11,14 @@
           <el-menu default-active="1" @select="handleSelect" :router="true">
             <el-menu-item
               v-for="item in menuItems"
-              :key="item.index"
-              :index="item.index"
-              :route="item.route"
+              :key="item.id"
+              :index="String(item.id)"
+              :route="item.uri"
             >
               <el-icon>
                 <component :is="item.icon" />
               </el-icon>
-              <span>{{ item.text }}</span>
+              <span>{{ item.title }}</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -32,28 +32,36 @@
   </div>
 </template>
 <script setup>
-import { reactive } from 'vue';
-import { Document, Reading, User } from '@element-plus/icons-vue';
-const menuItems = reactive([
+import { computed } from 'vue';
+import userStore from '@/store/user';
+// import { Document, Reading, User } from '@element-plus/icons-vue';
+const { Document, Reading, User } = require('@element-plus/icons-vue');
+const store = userStore();
+const menuItems1 = [
   {
-    index: '1',
-    route: '/',
+    id: '10',
+    uri: '/',
     icon: Document,
-    text: '作业板'
+    title: '作业板'
   },
   {
-    index: '2',
-    route: '/UserFeedback',
+    id: '11',
+    uri: '/UserFeedback',
     icon: Reading,
-    text: '意见反馈'
+    title: '意见反馈'
   },
   {
-    index: '3',
-    route: './AboutUs',
+    id: '12',
+    uri: '/AboutUs',
     icon: User,
-    text: '关于我们'
+    title: '关于我们'
   }
-]);
+];
+const menuItems = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+  menuItems1.push(...store.getRoutes);
+  return menuItems1;
+});
 // 导航选择
 const handleSelect = (key, keyPath) => {
   console.log(key, keyPath);

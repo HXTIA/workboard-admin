@@ -1,10 +1,10 @@
 export default {
   state() {
     return {
-      name: 'SG'
+      authRoutes: [],
     };
   },
   getters: {
-    getName: (state) => state.name || undefined,
+    getRoutes: (state) => state.authRoutes || [],
   }
 };

@@ -1,56 +1,84 @@
 <template>
-  <el-card class="boardAdmin_main_card">
-    <template #header>
-      <div>
-        <!--时间-->
-        <span class="main_card_time">发布于：{{ timeFormat(data.time) }}</span>
-        <!--标题-->
-        <h3>{{ data.title }}</h3>
+  <div class="workdesc-wrapper">
+    <div class="work-wrapper-main-button_group">
+      <el-button type="primary" round @click="editWork">编辑</el-button>
+      <el-button type="danger" round @click="deleteCard">删除</el-button>
+    </div>
+    <el-card class="boardAdmin_main_card">
+      <template #header>
+        <div>
+          <span class="main_card_time"
+            >发布于：{{ timeFormat(data.time) }}</span
+          >
+          <h3>{{ data.title }}</h3>
+        </div>
+      </template>
+      <workEdit
+        :data="data"
+        :isShowDialog="isShowDialog"
+        @changeIsShowDialog="changeIsShowDialog"
+        :isCreate="false"
+      ></workEdit>
+      <!--正文-->
+      <p>{{ data.detail }}</p>
+      <br />
+      <div class="main_image_group">
+        <el-image
+          v-for="(url, index) in data.pictureFiles"
+          :key="index"
+          :src="url"
+          fit="contain"
+        />
       </div>
-    </template>
+      <br />
+      <!--截止时间-->
+      <h4>截止时间:{{ timeFormat(data.deadline) }}</h4>
+      <br />
 
-    <!--正文-->
-    <p>{{ data.desc }}</p>
-    <br />
-    <div class="main_image_group">
-      <el-image
-        v-for="(url, index) in data.urls"
-        :key="index"
-        :src="url"
-        fit="contain"
-      />
-    </div>
-    <br />
-    <!--截止时间-->
-    <h4>截止时间:{{ timeFormat(data.ddl) }}</h4>
-    <br />
-
-    <!--标签-->
-    <div class="main_tag_group">
-      <el-tag
-        v-for="tag in data.tag"
-        :key="tag"
-        class="main_tag"
-        effect="dark"
-        size="large"
-        round
-      >
-        {{ tag }}
-      </el-tag>
-    </div>
-  </el-card>
+      <!--标签-->
+      <div class="main_tag_group">
+        <el-tag
+          v-for="tag in data.tag"
+          :key="tag"
+          class="main_tag"
+          effect="dark"
+          size="large"
+          round
+        >
+          {{ tag }}
+        </el-tag>
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { timeFormat } from '@/utils/format/index.js';
+import workEdit from '@/components/work/components/workEdit';
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     default: () => {}
   }
 });
+
+// eslint-disable-next-line prefer-const
+let isShowDialog = ref(false);
+const changeIsShowDialog = () => {
+  isShowDialog.value = false;
+};
+
+// 编辑
+const editWork = () => {
+  isShowDialog.value = true;
+};
+
+// 删除
+const deleteCard = () => {
+  console.log('删除,通过id先删除本地-> 再删除远端请求', props.data);
+};
 </script>
 
 <style scoped lang="scss">

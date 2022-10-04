@@ -4,15 +4,15 @@
 // import { reactive, ref, nextTick } from 'vue';
 // import { rules, workList } from '@/data/work.js';
 
-import { reactive, ref, provide } from 'vue';
+import { reactive, ref } from 'vue';
 import { workList } from '@/data/work.js';
 
 import {
   Search,
   Filter,
-  CirclePlus,
-  EditPen,
-  Delete
+  CirclePlus
+  // EditPen,
+  // Delete
 } from '@element-plus/icons-vue';
 import workDesc from './components/workDesc.vue';
 import workEdit from './components/workEdit.vue';
@@ -23,16 +23,14 @@ let query = ref('');
 
 // eslint-disable-next-line prefer-const
 let isShowDialog = ref(false);
-
 const changeIsShowDialog = () => {
   isShowDialog.value = false;
 };
 
-provide('isShowDialog', isShowDialog);
-provide('changeIsShowDialog', changeIsShowDialog);
-
 // 菜单栏的添加按钮
 const addBtn = () => {
+  // TODO: 是在子组件发送请求还是在此处发起请求
+  // 目前趋向于子组件请求 -> 通过父组件传递标识进行判断
   isShowDialog.value = true;
 };
 
@@ -100,23 +98,16 @@ const clickWorkList = (id, data) => {
         <div class="work-wrapper-main-workdesc">
           <div>
             <!--编辑与删除按钮-->
-            <div class="work-wrapper-main-button_group">
-              <el-button
-                type="primary"
-                :icon="EditPen"
-                round
-                @click="alertEditor"
-                >编辑</el-button
-              >
-              <el-button type="danger" :icon="Delete" round @click="deleteCard"
-                >删除</el-button
-              >
-            </div>
             <workDesc :data="workDetails"></workDesc>
           </div>
         </div>
       </el-container>
-      <workEdit></workEdit>
+      <workEdit
+        :data="{}"
+        :isShowDialog="isShowDialog"
+        @changeIsShowDialog="changeIsShowDialog"
+        :isCreate="true"
+      ></workEdit>
     </div>
   </div>
 </template>
