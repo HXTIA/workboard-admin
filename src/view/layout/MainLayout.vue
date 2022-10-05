@@ -57,6 +57,7 @@ const menuItems1 = [
     title: '关于我们'
   }
 ];
+// 目录
 const menuItems = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   menuItems1.push(...store.getRoutes);
