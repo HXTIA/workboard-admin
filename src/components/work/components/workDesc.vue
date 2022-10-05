@@ -70,6 +70,9 @@ const changeIsShowDialog = () => {
   isShowDialog.value = false;
 };
 
+provide('isShowDialog', isShowDialog);
+provide('changeIsShowDialog', changeIsShowDialog);
+
 // 编辑
 const editWork = () => {
   isShowDialog.value = true;

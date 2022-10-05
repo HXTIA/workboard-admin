@@ -18,14 +18,19 @@
               <el-icon>
                 <component :is="item.icon" />
               </el-icon>
-              <span>{{ item.title }}</span>
+              <span>{{ item.name }}</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
 
         <!--右侧-->
         <el-main>
-          <router-view />
+          <!-- 缓存页面 -->
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component"></component>
+            </keep-alive>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -34,35 +39,45 @@
 <script setup>
 import { computed } from 'vue';
 import userStore from '@/store/user';
-// import { Document, Reading, User } from '@element-plus/icons-vue';
-const { Document, Reading, User } = require('@element-plus/icons-vue');
+
 const store = userStore();
+
 const menuItems1 = [
   {
     id: '10',
-    uri: '/',
-    icon: Document,
-    title: '作业板'
+    uri: '/work',
+    icon: 'Document',
+    name: '作业板'
   },
   {
     id: '11',
     uri: '/UserFeedback',
-    icon: Reading,
-    title: '意见反馈'
+    icon: 'Reading',
+    name: '意见反馈'
   },
   {
     id: '12',
     uri: '/AboutUs',
-    icon: User,
-    title: '关于我们'
+    icon: 'User',
+    name: '关于我们'
   }
 ];
-// 目录
+// 目录数据
 const menuItems = computed(() => {
+  const routes = JSON.parse(JSON.stringify(store.getRoutes));
+
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-  menuItems1.push(...store.getRoutes);
+  menuItems1.unshift(...routes);
+
+  menuItems1.map((value) => {
+    const name = value.icon;
+    const { [name]: component } = require('@element-plus/icons-vue');
+    return (value.icon = component);
+  });
+
   return menuItems1;
 });
+
 // 导航选择
 const handleSelect = (key, keyPath) => {
   console.log(key, keyPath);

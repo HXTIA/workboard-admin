@@ -209,73 +209,405 @@ export const fileList = [
 
 export const dynamicRoutes = [
   {
-    id: 1,
-    title: '系统数据',
-    name: 'systemData',
-    uri: '/main/data',
+    id: 2,
+    name: '系统管理',
+    uri: '/main/system',
     permission: '',
     type: 1,
     sn: 0,
-    icon: 'User',
+    icon: '',
     parentId: 0,
     children: [
       {
-        id: 2,
-        title: '系统总览',
-        name: 'systemOverall',
-        uri: '/main/data/system/overall',
+        id: 10,
+        name: '角色管理',
+        uri: '/main/system/role',
         permission: '',
         type: 2,
         sn: 0,
         icon: '',
-        parentId: 1,
+        parentId: 2,
+        children: [
+          {
+            id: 26,
+            name: '创建角色',
+            uri: '',
+            permission: 'sysRole:create',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 10
+          },
+          {
+            id: 25,
+            name: '删除角色',
+            uri: '',
+            permission: 'sysRole:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 10
+          },
+          {
+            id: 24,
+            name: '修改角色',
+            uri: '',
+            permission: 'sysRole:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 10
+          },
+          {
+            id: 23,
+            name: '查询角色',
+            uri: '',
+            permission: 'sysRole:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 10
+          }
+        ]
       },
       {
-        id: 3,
-        title: '班级统计',
-        name: 'classStatistics',
-        uri: '/main/data/system/classStatistics',
+        id: 8,
+        name: 'B端用户管理',
+        uri: '/main/system/adminUser',
         permission: '',
-        type: 3,
+        type: 2,
         sn: 0,
         icon: '',
-        parentId: 1,
+        parentId: 2,
+        children: [
+          {
+            id: 19,
+            name: '创建B端用户',
+            uri: '',
+            permission: 'sysAdminUser:create',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 8
+          },
+          {
+            id: 18,
+            name: '删除B端用户',
+            uri: '',
+            permission: 'sysAdminUser:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 8
+          },
+          {
+            id: 17,
+            name: '修改B端用户',
+            uri: '',
+            permission: 'sysAdminUser:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 8
+          },
+          {
+            id: 16,
+            name: '查询B端用户',
+            uri: '',
+            permission: 'sysAdminUser:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 8
+          }
+        ]
       },
-    ],
+      {
+        id: 7,
+        name: '组织管理',
+        uri: '/main/system/organization',
+        permission: '',
+        type: 2,
+        sn: 0,
+        icon: '',
+        parentId: 2,
+        children: [
+          {
+            id: 15,
+            name: '修改组织',
+            uri: '',
+            permission: 'sysOrganization:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 7
+          },
+          {
+            id: 14,
+            name: '查询组织',
+            uri: '',
+            permission: 'sysOrganization:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 7
+          }
+        ]
+      },
+      {
+        id: 9,
+        name: 'C端用户管理',
+        uri: '/main/system/user',
+        permission: '',
+        type: 2,
+        sn: 0,
+        icon: '',
+        parentId: 2,
+        children: [
+          {
+            id: 22,
+            name: '删除C端用户',
+            uri: '',
+            permission: 'sysUser:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 9
+          },
+          {
+            id: 21,
+            name: '修改C端用户',
+            uri: '',
+            permission: 'sysUser:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 9
+          },
+          {
+            id: 20,
+            name: '查询C端用户',
+            uri: '',
+            permission: 'sysUser:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 9
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: '班级中心',
+    uri: '/class/center',
+    permission: '',
+    type: 1,
+    sn: 0,
+    icon: '',
+    parentId: 0,
+    children: [
+      {
+        id: 12,
+        name: '教学班级',
+        uri: '/class/center/education',
+        permission: '',
+        type: 2,
+        sn: 0,
+        icon: '',
+        parentId: 3,
+        children: [
+          {
+            id: 31,
+            name: '查询教学班',
+            uri: '',
+            permission: 'clsEducation:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 12
+          },
+          {
+            id: 32,
+            name: '修改教学班',
+            uri: '',
+            permission: 'clsEducation:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 12
+          },
+          {
+            id: 33,
+            name: '删除教学班',
+            uri: '',
+            permission: 'clsEducation:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 12
+          },
+          {
+            id: 34,
+            name: '创建教学班',
+            uri: '',
+            permission: 'clsEducation:create',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 12
+          }
+        ]
+      },
+      {
+        id: 11,
+        name: '行政班级',
+        uri: '/class/center/executive',
+        permission: '',
+        type: 2,
+        sn: 0,
+        icon: '',
+        parentId: 3,
+        children: [
+          {
+            id: 27,
+            name: '查询行政班',
+            uri: '',
+            permission: 'clsExecutive:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 11
+          },
+          {
+            id: 28,
+            name: '修改行政班',
+            uri: '',
+            permission: 'clsExecutive:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 11
+          },
+          {
+            id: 29,
+            name: '删除行政班',
+            uri: '',
+            permission: 'clsExecutive:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 11
+          },
+          {
+            id: 30,
+            name: '创建行政班',
+            uri: '',
+            permission: 'clsExecutive:create',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 11
+          }
+        ]
+      }
+    ]
   },
   {
     id: 4,
-    title: '管理员管理',
-    name: 'adminAdministrator',
-    uri: '/admin/data',
+    name: '作业中心',
+    uri: '/work/center',
     permission: '',
     type: 1,
     sn: 0,
-    icon: 'User',
+    icon: '',
     parentId: 0,
     children: [
       {
-        id: 5,
-        title: '全部成员',
-        name: 'allPeople',
-        uri: '/admin/data/overall',
+        id: 13,
+        name: '作业管理',
+        uri: '/work/center/manage',
         permission: '',
         type: 2,
         sn: 0,
         icon: '',
         parentId: 4,
-      },
+        children: [
+          {
+            id: 35,
+            name: '查询作业',
+            uri: '',
+            permission: 'workManage:read',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 13
+          },
+          {
+            id: 36,
+            name: '修改作业',
+            uri: '',
+            permission: 'workManage:update',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 13
+          },
+          {
+            id: 37,
+            name: '删除作业',
+            uri: '',
+            permission: 'workManage:delete',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 13
+          },
+          {
+            id: 38,
+            name: '创建作业',
+            uri: '',
+            permission: 'workManage:create',
+            type: 3,
+            sn: 0,
+            icon: '',
+            parentId: 13
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1,
+    name: '系统数据',
+    uri: '/main',
+    permission: '',
+    type: 1,
+    sn: 0,
+    icon: '',
+    parentId: 0,
+    children: [
       {
         id: 6,
-        title: '权限分配',
-        name: 'adminProfile',
-        uri: '/admin/data/assignment',
+        name: '班级统计',
+        uri: '/main/system/classStatistics',
         permission: '',
-        type: 3,
+        type: 2,
         sn: 0,
         icon: '',
-        parentId: 4,
+        parentId: 1
       },
-    ],
-  },
+      {
+        id: 5,
+        name: '系统总揽',
+        uri: '/main/system/overall',
+        permission: '',
+        type: 2,
+        sn: 0,
+        icon: '',
+        parentId: 1
+      }
+    ]
+  }
 ];

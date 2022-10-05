@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import userStore from '@/store/user';
-// import request from '@/services';
-import { handleRoutes } from '@/utils/routes';
-import { dynamicRoutes } from '@/data/work.js';
+// import { handleRoutes } from '@/utils/routes';
+// import { dynamicRoutes } from '@/data/work.js';
+import { requestRoutes } from '@/utils/routes/requestRoutes.js';
 
 const routes = [
   {
@@ -11,7 +11,7 @@ const routes = [
     component: () => import('@/view/layout/MainLayout.vue'),
     children: [
       {
-        path: '/',
+        path: '/work',
         name: 'workitem',
         component: () => import('@/components/work/index.vue'),
       },
@@ -31,7 +31,12 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('@/view/login/index.vue'),
-  }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/view/NotFound/index.vue')
+  },
 ];
 
 const router = createRouter({
@@ -39,20 +44,26 @@ const router = createRouter({
   routes
 });
 
+// 全局路由前置守卫
 router.beforeEach(async (to, from, next) => {
   const store = userStore();
+
+  // 是否存在token -> 不存在直接去登录
+  if (!store.getToken) {
+    // 未登录 -> 重定向至登陆界面
+    if (to.path !== '/login') {
+      return next({ path: '/login' });
+    }
+  }
+
+  // 存在token但是不存在路由表 -> 处理没有路由表
   if (!store.getRoutes.length) {
-    // const res = await request({
-    //   url: 'http://localhost:3000/api/data/getRouters',
-    //   method: 'GET',
-    // });
-    const res = dynamicRoutes;
-    store.setRoutes(res);
-    const Res = handleRoutes(res);
-    Res.forEach((value) => {
-      router.addRoute('Home', value);
-    });
-    next({ path: to.path });
+    // 如果token不对，取不到目标路由表 -> 返回false ， 那么去到登录页
+    const res = requestRoutes(store, router);
+    if (res) {
+      console.log(router.getRoutes());
+      return next({ path: to.path });
+    }
   } else {
     next();
   }

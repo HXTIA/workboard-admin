@@ -27,6 +27,9 @@ const changeIsShowDialog = () => {
   isShowDialog.value = false;
 };
 
+provide('isShowDialog', isShowDialog);
+provide('changeIsShowDialog', changeIsShowDialog);
+
 // 菜单栏的添加按钮
 const addBtn = () => {
   // TODO: 是在子组件发送请求还是在此处发起请求

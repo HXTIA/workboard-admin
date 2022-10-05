@@ -75,7 +75,7 @@
 import 'element-plus/es/components/message/style/css';
 import 'element-plus/es/components/message-box/style/css';
 import { courseClass } from '@/data/work.js';
-import { reactive, defineProps, defineEmits, toRefs, watchEffect } from 'vue';
+import { reactive, defineProps, inject, watchEffect } from 'vue';
 // import request from '@/services';
 
 const props = defineProps({
@@ -86,24 +86,13 @@ const props = defineProps({
   isCreate: {
     type: Boolean,
     default: () => true
-  },
-  isShowDialog: {
-    type: Boolean,
-    default: () => {}
   }
 });
 
-const { isShowDialog } = toRefs(props);
-
-// eslint-disable-next-line prefer-const
-let showDialogForm = computed({
-  get() {
-    return isShowDialog.value;
-  },
-  set() {}
-});
-
-const emits = defineEmits(['changeIsShowDialog']);
+// 接受传递的变量 -> 控制开闭
+const showDialogForm = inject('isShowDialog');
+// 控制关闭模态框
+const changeIsShowDialog = inject('changeIsShowDialog');
 
 // 表单
 const form = reactive({
@@ -160,7 +149,7 @@ const onSubmit = async () => {
 
 // 取消
 const onCancel = () => {
-  emits('changeIsShowDialog');
+  changeIsShowDialog();
 };
 </script>
 
