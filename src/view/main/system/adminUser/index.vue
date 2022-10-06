@@ -1,7 +1,7 @@
 <template>
-  <div>用户反馈</div>
+  <div>adminUser</div>
 </template>
 
 <script setup></script>
 
-<style scoped></style>
+<style></style>

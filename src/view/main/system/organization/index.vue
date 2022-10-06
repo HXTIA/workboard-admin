@@ -1,7 +1,7 @@
 <template>
-  <div>用户反馈</div>
+  <div>组织</div>
 </template>
 
 <script setup></script>
 
-<style scoped></style>
+<style></style>

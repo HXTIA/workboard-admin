@@ -1,10 +1,13 @@
+import { getStorage } from '@/utils/cache';
 export default {
   state() {
     return {
-      name: 'SG'
+      authRoutes: [],
+      token: ''
     };
   },
   getters: {
-    getName: (state) => state.name || undefined,
+    getRoutes: (state) => state.authRoutes || [],
+    getToken: (state) => state.token || getStorage('token'),
   }
 };
