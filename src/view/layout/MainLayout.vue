@@ -8,19 +8,7 @@
       <el-container>
         <!--左侧-->
         <el-aside width="200px">
-          <el-menu default-active="1" @select="handleSelect" :router="true">
-            <el-menu-item
-              v-for="item in menuItems"
-              :key="item.id"
-              :index="String(item.id)"
-              :route="item.uri"
-            >
-              <el-icon>
-                <component :is="item.icon" />
-              </el-icon>
-              <span>{{ item.name }}</span>
-            </el-menu-item>
-          </el-menu>
+          <Menu :menuItems="menuItems"></Menu>
         </el-aside>
 
         <!--右侧-->
@@ -37,6 +25,7 @@
   </div>
 </template>
 <script setup>
+import Menu from '@/components/menu/index.vue';
 import { computed } from 'vue';
 import userStore from '@/store/user';
 
@@ -44,19 +33,13 @@ const store = userStore();
 
 const menuItems1 = [
   {
-    id: '10',
-    uri: '/work',
-    icon: 'Document',
-    name: '作业板'
-  },
-  {
-    id: '11',
+    id: '60',
     uri: '/UserFeedback',
     icon: 'Reading',
     name: '意见反馈'
   },
   {
-    id: '12',
+    id: '61',
     uri: '/AboutUs',
     icon: 'User',
     name: '关于我们'
@@ -77,11 +60,6 @@ const menuItems = computed(() => {
 
   return menuItems1;
 });
-
-// 导航选择
-const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath);
-};
 </script>
 <style scoped>
 .layout-wrapper {

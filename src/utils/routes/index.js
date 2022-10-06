@@ -16,7 +16,7 @@ function handleRoute(routes) {
       component: () => import(`@/view${value.uri}/index.vue`),
     };
 
-    if (value.children && value.children[0].uri !== '') {
+    if (value.children && value.children[0].type !== 3) {
       route.children = handleRoute(value.children);
     }
 

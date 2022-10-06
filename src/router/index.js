@@ -11,11 +11,6 @@ const routes = [
     component: () => import('@/view/layout/MainLayout.vue'),
     children: [
       {
-        path: '/work',
-        name: 'workitem',
-        component: () => import('@/components/work/index.vue'),
-      },
-      {
         path: '/UserFeedback',
         name: 'UserFeedback',
         component: () => import('@/components/UserFeedback.vue'),

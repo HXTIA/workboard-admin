@@ -1,10 +1,11 @@
 <template>
   <div>
-    work
     <router-view></router-view>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// import Work from '@/components/work';
+</script>
 
 <style></style>
