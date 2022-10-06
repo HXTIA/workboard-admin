@@ -1,27 +1,38 @@
 <template>
   <el-menu default-active="1" @select="handleSelect" :router="true">
-    <el-sub-menu
-      v-for="item in menuItems"
-      :key="item.id"
-      :index="String(item.id)"
-      :route="item.uri"
-    >
-      <template #title>
-        <el-icon>
-          <component :is="item.icon" />
-        </el-icon>
-        <span>{{ item.name }}</span>
+    <div v-for="item in menuItems" :key="item.id">
+      <template v-if="item.children">
+        <el-sub-menu :index="String(item.id)" :route="item.uri">
+          <template #title>
+            <el-icon>
+              <component :is="item.icon" />
+            </el-icon>
+            <span>{{ item.name }}</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item
+              v-for="children in item.children"
+              :key="children.id"
+              :index="String(children.id)"
+              :route="children.uri"
+            >
+              <!-- <el-icon>
+                <component :is="children.icon" />
+              </el-icon> -->
+              <span>{{ children.name }}</span>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
       </template>
-      <el-menu-item-group>
-        <el-menu-item
-          v-for="children in item.children"
-          :key="children.id"
-          :index="String(children.id)"
-          :route="children.uri"
-          >{{ children.name }}</el-menu-item
+      <template v-else>
+        <el-menu-item :index="String(item.id)" :route="item.uri">
+          <el-icon>
+            <component :is="item.icon" />
+          </el-icon>
+          <span>{{ item.name }}</span></el-menu-item
         >
-      </el-menu-item-group>
-    </el-sub-menu>
+      </template>
+    </div>
   </el-menu>
 </template>
 

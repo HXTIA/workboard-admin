@@ -4,8 +4,6 @@
   </div>
 </template>
 
-<script setup>
-// import Work from '@/components/work';
-</script>
+<script setup></script>
 
 <style></style>

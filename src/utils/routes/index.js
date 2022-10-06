@@ -2,7 +2,6 @@
 export const handleRoutes = (routes) => {
   // 功能: -> 接受传进来的数组 -> 给其补齐component返回新的数组
   const res = handleRoute(routes);
-  console.log(routes, 1);
   return res;
 };
 
@@ -22,6 +21,6 @@ function handleRoute(routes) {
 
     return Routes.push(route);
   });
-  console.log(Routes);
+
   return Routes;
 }

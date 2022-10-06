@@ -7,7 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AboutUs: typeof import('./src/components/AboutUs.vue')['default']
+    About: typeof import('./src/components/about/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -32,10 +32,10 @@ declare module '@vue/runtime-core' {
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    Feedback: typeof import('./src/components/feedback/index.vue')['default']
     Menu: typeof import('./src/components/menu/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    UserFeedback: typeof import('./src/components/UserFeedback.vue')['default']
     Work: typeof import('./src/components/work/index.vue')['default']
     WorkDesc: typeof import('./src/components/work/components/workDesc.vue')['default']
     WorkEdit: typeof import('./src/components/work/components/workEdit.vue')['default']

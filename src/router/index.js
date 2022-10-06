@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import userStore from '@/store/user';
-// import { handleRoutes } from '@/utils/routes';
-// import { dynamicRoutes } from '@/data/work.js';
 import { requestRoutes } from '@/utils/routes/requestRoutes.js';
 
 const routes = [
@@ -13,12 +11,12 @@ const routes = [
       {
         path: '/UserFeedback',
         name: 'UserFeedback',
-        component: () => import('@/components/UserFeedback.vue'),
+        component: () => import('@/components/feedback/index.vue'),
       },
       {
         path: '/AboutUs',
         name: 'AboutUs',
-        component: () => import('@/components/AboutUs.vue'),
+        component: () => import('@/components/about/index.vue'),
       }
     ]
   },
@@ -53,11 +51,10 @@ router.beforeEach(async (to, from, next) => {
 
   // 存在token但是不存在路由表 -> 处理没有路由表
   if (!store.getRoutes.length) {
-    // 如果token不对，取不到目标路由表 -> 返回false ， 那么去到登录页
+    // 如果token不对，取不到目标路由表 -> 返回false ， push登录页
     const res = requestRoutes(store, router);
     if (res) {
-      console.log(router.getRoutes());
-      return next({ path: to.path });
+      return next({ path: to.path, replace: true });
     }
   } else {
     next();
