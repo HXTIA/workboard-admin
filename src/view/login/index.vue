@@ -11,7 +11,8 @@ import router from '@/router';
 const store = userStore();
 const login = () => {
   store.setUserInfo();
-  router.push({ name: 'workitem' });
+  // router.push({ name: 'Home' });
+  router.push({ path: '/' });
 };
 </script>
 

@@ -9,8 +9,9 @@ export const requestRoutes = async (store, router) => {
   //   url: 'http://localhost:3000/api/data/getRouters',
   //   method: 'GET',
   // });
+
   // 处理路由表请求问题 -> 如果是没有权限 -> token过期 -> 重新登录
-  const res1 = 1;
+  const res1 = false;
   if (!res1) {
     ElMessage.success({
       message: '登录态已过期，前往登录！',

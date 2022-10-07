@@ -215,7 +215,7 @@ export const dynamicRoutes = [
     permission: '',
     type: 1,
     sn: 0,
-    icon: '',
+    icon: 'Setting',
     parentId: 0,
     children: [
       {
@@ -225,7 +225,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'Avatar',
         parentId: 2,
         children: [
           {
@@ -277,7 +277,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'User',
         parentId: 2,
         children: [
           {
@@ -329,7 +329,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'Service',
         parentId: 2,
         children: [
           {
@@ -361,7 +361,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'UserFilled',
         parentId: 2,
         children: [
           {
@@ -405,7 +405,7 @@ export const dynamicRoutes = [
     permission: '',
     type: 1,
     sn: 0,
-    icon: '',
+    icon: 'Operation',
     parentId: 0,
     children: [
       {
@@ -415,7 +415,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'View',
         parentId: 3,
         children: [
           {
@@ -467,7 +467,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'View',
         parentId: 3,
         children: [
           {
@@ -521,7 +521,7 @@ export const dynamicRoutes = [
     permission: '',
     type: 1,
     sn: 0,
-    icon: '',
+    icon: 'Document',
     parentId: 0,
     children: [
       {
@@ -531,7 +531,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'Edit',
         parentId: 4,
         children: [
           {
@@ -585,7 +585,7 @@ export const dynamicRoutes = [
     permission: '',
     type: 1,
     sn: 0,
-    icon: '',
+    icon: 'Odometer',
     parentId: 0,
     children: [
       {
@@ -595,7 +595,7 @@ export const dynamicRoutes = [
         permission: '',
         type: 2,
         sn: 0,
-        icon: '',
+        icon: 'PieChart',
         parentId: 1
       },
       {
