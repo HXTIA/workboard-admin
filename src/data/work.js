@@ -24,148 +24,149 @@ export const workList = [
     title: '我是id1',
     detail: '这是一段简短的描述，这是一段简短的描述，这是一段简短的描述',
     tag: ['作业二'],
+    semesterId: 1,
     deadline: Date.now(),
+    courseId: 1,
     pictureFiles: [
-      'https://img1.baidu.com/it/u=2475127973,1009717621&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281',
-      'https://img1.baidu.com/it/u=2475127973,1009717621&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281',
       'https://img1.baidu.com/it/u=2475127973,1009717621&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281',
       'https://p3-passport.byteimg.com/img/user-avatar/f3446fd0d9764da159a154bddb3793ff~180x180.awebp'
     ]
   },
   {
     id: 2,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-2班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业二', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
+    time: Date.now(),
+    title: '我是id2',
+    detail: '这是一段简短的描述',
+    tag: ['作业1'],
+    semesterId: 1,
+    deadline: Date.now(),
+    courseId: 1,
     pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg2.niutuku.com%2Fdesk%2F1208%2F1300%2Fntk-1300-31979.jpg&refer=http%3A%2F%2Fimg2.niutuku.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1667701601&t=14b70dc0967074e1fbca70e971eab394',
     ]
   },
-  {
-    id: 3,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-3班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业三', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 4,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-4班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业四', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 5,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-5班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业五', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 6,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-6班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 7,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-6班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 8,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-6班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 9,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-6班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  },
-  {
-    id: 10,
-    time: '2018-4-12 13:34:22',
-    title: '计算机网络-6班',
-    detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
-    tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
-    deadline: '2021-4-12 13:34:22',
-    pictureFiles: [
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    ]
-  }
+  // {
+  //   id: 3,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-3班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业三', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 4,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-4班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业四', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 5,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-5班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业五', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 6,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-6班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 7,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-6班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 8,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-6班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 9,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-6班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // },
+  // {
+  //   id: 10,
+  //   time: '2018-4-12 13:34:22',
+  //   title: '计算机网络-6班',
+  //   detail: '第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己做第2章1、2、3、5、7、8题，第一题要自己做，第一题要自己做，第一题要自己做，第一题要自己.....',
+  //   tag: ['作业六', '命名格式：学号+姓名', '提交给：学委'],
+  //   deadline: '2021-4-12 13:34:22',
+  //   pictureFiles: [
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  //     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  //   ]
+  // }
 ];
 
 export const courseClass = [

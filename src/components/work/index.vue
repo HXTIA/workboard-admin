@@ -1,21 +1,11 @@
 <script setup>
-// import { ElMessage, ElMessageBox } from 'element-plus';
-// import getSystemTime from '@/utils/WorkList/getSystemTime';
-// import { reactive, ref, nextTick } from 'vue';
-// import { rules, workList } from '@/data/work.js';
-
 import { reactive, ref } from 'vue';
 import { workList } from '@/data/work.js';
-
-import {
-  Search,
-  Filter,
-  CirclePlus
-  // EditPen,
-  // Delete
-} from '@element-plus/icons-vue';
+import { a } from './api';
+import { Search, Filter, CirclePlus } from '@element-plus/icons-vue';
 import workDesc from './components/workDesc.vue';
 import workEdit from './components/workEdit.vue';
+a();
 
 // 搜索内容
 // eslint-disable-next-line prefer-const
@@ -163,14 +153,5 @@ const clickWorkList = (id, data) => {
       justify-content: space-between;
     }
   }
-}
-
-/* 编辑对话框 */
-.edit_dialog .el-input {
-  width: 300px;
-}
-
-.edit_dialog_footer button:first-child {
-  margin-right: 10px;
 }
 </style>

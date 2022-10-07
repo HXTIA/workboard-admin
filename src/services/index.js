@@ -2,7 +2,7 @@ import axios from 'axios';
 import userStore from 'store/user';
 import router from 'router';
 
-const backendURL = 'http://localhost:8080/api';
+const backendURL = 'http://119.29.157.231:8888';
 
 // 创建axios实例
 const http = axios.create({
@@ -13,10 +13,10 @@ const http = axios.create({
 
 // 枚举状态码
 http.httpCode = {
-  SUCCESS: 200, // 成功
-  CREAETED: 201, // 创建成功
-  DELETEED: 204, // 删除成功
+  SUCCESS: 1, // 成功
+  FAIL: 400, // 失败
   UNAUTHORIZED: 401, // 没有权限
+  NOFOUNDUSERL: 50001
 };
 
 // 请求拦截器
@@ -25,7 +25,7 @@ http.interceptors.request.use((config) => {
   const token = store.getToken;
 
   if (token) {
-    config.headers.common.Authorization = `Bearer ${token}`;
+    config.headers.common.token = token;
   }
   return config;
 });
@@ -39,12 +39,12 @@ http.interceptors.response.use(
   (err) => {
     // 错误
     const res = err.response;
-    if (res.status === http.httpCode.UNAUTHORIZED) {
+    if (res.data.code === http.httpCode.UNAUTHORIZED) {
     // 权限不够，返回登录页
-      router.push('/');
-      return Promise.reject(res);
+      router.push('/login');
+      return Promise.resolve(res);
     }
-    return Promise.reject(err);
+    return Promise.resolve(res);
   }
 );
 

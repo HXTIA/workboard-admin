@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       authRoutes: [],
+      authPermission: [],
       token: ''
     };
   },

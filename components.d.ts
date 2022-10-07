@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     Menu: typeof import('./src/components/menu/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Uploader: typeof import('./src/components/shared/Uploader.vue')['default']
     Work: typeof import('./src/components/work/index.vue')['default']
     WorkDesc: typeof import('./src/components/work/components/workDesc.vue')['default']
     WorkEdit: typeof import('./src/components/work/components/workEdit.vue')['default']
