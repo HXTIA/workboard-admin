@@ -9,8 +9,8 @@ export const loginReq = async ({ username, password, captcha }) => {
     data: {
       username,
       password,
-      captcha
-    }
+      captcha,
+    },
   });
 
   if (Number(res.code) !== 1) {
