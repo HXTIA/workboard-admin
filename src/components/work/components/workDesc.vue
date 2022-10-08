@@ -53,7 +53,6 @@
 </template>
 
 <script setup>
-import { defineProps, ref, watchEffect } from 'vue';
 import { timeFormat } from '@/utils/format/index.js';
 import workEdit from '@/components/work/components/workEdit';
 
@@ -62,10 +61,6 @@ const props = defineProps({
     type: Object,
     default: () => {}
   }
-});
-
-watchEffect(() => {
-  console.log(props.data, 111);
 });
 
 // eslint-disable-next-line prefer-const

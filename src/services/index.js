@@ -6,7 +6,6 @@ const backendURL = 'http://119.29.157.231:8888';
 
 // 创建axios实例
 const http = axios.create({
-  // baseURL: import.meta.env.VITE_BACKEND,
   baseURL: backendURL,
   timeout: 5000,
 });
@@ -15,8 +14,9 @@ const http = axios.create({
 http.httpCode = {
   SUCCESS: 1, // 成功
   FAIL: 400, // 失败
-  UNAUTHORIZED: 401, // 没有权限
-  NOFOUNDUSERL: 50001
+  UNAUTHORIZED: 401, // 没有权限，不存在token
+  TOKEN_TIMEOUT: 60002, // token 过期
+  NOFOUNDUSER: 50001 // 不存在该用户
 };
 
 // 请求拦截器
@@ -39,9 +39,10 @@ http.interceptors.response.use(
   (err) => {
     // 错误
     const res = err.response;
+    console.log(res);
     if (res.data.code === http.httpCode.UNAUTHORIZED) {
     // 权限不够，返回登录页
-      router.push('/login');
+      router.push({ path: '/login' });
       return Promise.resolve(res);
     }
     return Promise.resolve(res);

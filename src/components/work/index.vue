@@ -1,34 +1,31 @@
 <script setup>
-import { reactive, ref } from 'vue';
-import { workList } from '@/data/work.js';
-import { a } from './api';
-import { Search, Filter, CirclePlus } from '@element-plus/icons-vue';
-import workDesc from './components/workDesc.vue';
-import workEdit from './components/workEdit.vue';
-a();
-
-// 搜索内容
-// eslint-disable-next-line prefer-const
-let query = ref('');
+import { getWorklist } from './api';
+import workStore from '@/store/work';
+import WorkDesc from './components/workDesc.vue';
+import WorkEdit from './components/workEdit.vue';
+import WorkList from './components/workList.vue';
+import WorkHeader from './components/workHeader.vue';
 
 // eslint-disable-next-line prefer-const
 let isShowDialog = ref(false);
-const changeIsShowDialog = () => {
-  isShowDialog.value = false;
+const changeIsShowDialog = (flag) => {
+  isShowDialog.value = flag;
 };
 
+// 向子组件注入控制对话框开闭的变量
 provide('isShowDialog', isShowDialog);
 provide('changeIsShowDialog', changeIsShowDialog);
 
-// 菜单栏的添加按钮
-const addBtn = () => {
-  // TODO: 是在子组件发送请求还是在此处发起请求
-  // 目前趋向于子组件请求 -> 通过父组件传递标识进行判断
-  isShowDialog.value = true;
-};
+// 检测store的数据
+const store = workStore();
+const workList = reactive(store.getWorklist);
+const workDetails = reactive(JSON.parse(JSON.stringify(workList[0] || {})));
 
-// 作业详情 -> 默认第一个被展示，深拷贝防止引用类型修改
-const workDetails = reactive(JSON.parse(JSON.stringify(workList[0])));
+// 挂载发起请求
+onBeforeMount(() => {
+  getWorklist();
+  console.log('1212121');
+});
 
 // 点击作业列表
 const clickWorkList = (id, data) => {
@@ -36,40 +33,12 @@ const clickWorkList = (id, data) => {
   Object.assign(workDetails, data);
 };
 </script>
-
 <template>
   <div>
     <div class="work-wrapper">
       <!--菜单栏-->
       <el-header class="work-wrapper-header">
-        <!--搜索-->
-        <el-input
-          v-model="query"
-          placeholder="请输入内容"
-          size="large"
-          :maxlength="30"
-          :clearable="true"
-          class="work-wrapper-header-search"
-        >
-          <template #append>
-            <el-button :icon="Search">搜索</el-button>
-          </template>
-        </el-input>
-        <!--筛选与添加按钮-->
-        <el-button
-          type="primary"
-          :icon="Filter"
-          size="large"
-          class="work-wrapper-header-screen_btn"
-          >筛选</el-button
-        >
-        <el-button
-          type="primary"
-          :icon="CirclePlus"
-          size="large"
-          @click="addBtn"
-          >添加</el-button
-        >
+        <WorkHeader :data="workList"></WorkHeader>
       </el-header>
 
       <el-container class="work-wrapper-main">
@@ -91,16 +60,16 @@ const clickWorkList = (id, data) => {
         <div class="work-wrapper-main-workdesc">
           <div>
             <!--编辑与删除按钮-->
-            <workDesc :data="workDetails"></workDesc>
+            <WorkDesc :data="workDetails" v-show="workDetails.id"></WorkDesc>
           </div>
         </div>
       </el-container>
-      <workEdit
+      <WorkEdit
         :data="{}"
         :isShowDialog="isShowDialog"
         @changeIsShowDialog="changeIsShowDialog"
         :isCreate="true"
-      ></workEdit>
+      ></WorkEdit>
     </div>
   </div>
 </template>
@@ -111,22 +80,6 @@ const clickWorkList = (id, data) => {
   height: 100%;
 
   /* 菜单栏 */
-  &-header {
-    display: flex;
-    justify-content: flex-start;
-    height: 60px;
-    align-items: center;
-    border-bottom: 1px solid #ebeef5;
-
-    &-search {
-      width: 50%;
-      margin-right: 40px;
-    }
-
-    &-screen_btn {
-      margin-right: 40px;
-    }
-  }
 
   &-main {
     display: flex;

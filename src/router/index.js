@@ -37,18 +37,22 @@ const router = createRouter({
   routes
 });
 
+// let i = 0;
+
 // 全局路由前置守卫
 router.beforeEach(async (to, from, next) => {
   const store = userStore();
-
+  const token = localStorage.getItem('token');
   // 是否存在token -> 不存在直接去登录
-  if (!store.getToken) {
+  if (!token) {
     console.log('没有token');
     // 未登录 -> 重定向至登陆界面
     if (to.path !== '/login') {
-      return next({ path: '/login' });
+      next({ path: '/login' });
+    } else {
+      next();
     }
-    return next();
+    return;
   }
 
   // 存在token但是不存在路由表 -> 处理没有路由表
@@ -57,7 +61,7 @@ router.beforeEach(async (to, from, next) => {
     const res = await requestRoutes(store, router);
     // 如果是false -> token不对，重新去登录
     if (!res) {
-      return next({ path: '/login', replace: true });
+      next({ path: '/login', replace: true });
     } else {
       // 路由表获取正常 -> 正常跳转
       next({ path: to.path, replace: true });

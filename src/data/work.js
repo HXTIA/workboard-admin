@@ -17,7 +17,7 @@ export const rules = reactive({
   deadline: [{ required: true, message: '不能为空', trigger: 'change' }]
 });
 
-export const workList = [
+export const worklist = [
   {
     id: 1,
     time: Date.now(),

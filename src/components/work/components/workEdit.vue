@@ -132,7 +132,7 @@ const onSubmit = async () => {
 // 取消
 const onCancel = () => {
   console.log(matchMap);
-  changeIsShowDialog();
+  changeIsShowDialog(false);
 };
 </script>
 

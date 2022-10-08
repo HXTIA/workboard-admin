@@ -15,9 +15,9 @@
         <el-main>
           <!-- 缓存页面 -->
           <router-view v-slot="{ Component }">
-            <keep-alive>
+            <KeepAlive>
               <component :is="Component"></component>
-            </keep-alive>
+            </KeepAlive>
           </router-view>
         </el-main>
       </el-container>

@@ -3,6 +3,7 @@ import { handleRoutes } from '@/utils/routes';
 import 'element-plus/es/components/message/style/css';
 import { ElMessage } from 'element-plus';
 import { removeStorage } from '@/utils/cache';
+
 import request from '@/services';
 
 export const requestRoutes = async (store, router) => {
@@ -11,7 +12,7 @@ export const requestRoutes = async (store, router) => {
     url: '/admin/resources/searchList',
     method: 'GET',
   });
-  console.log(res, 'routes');
+
   // 据返回值进行判断
   return await new Promise((resolve, reject) => {
     // 没有权限

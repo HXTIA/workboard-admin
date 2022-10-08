@@ -14,12 +14,12 @@ export default {
       this.token = token;
     },
     setAuthPermission(data) {
+      // 存储各模块权限
       const authPermission = new Map();
-      // const res = flatten(data);
       data.forEach((value) => {
-        // const id = value.id;
         const navMenu = value.children || [];
         navMenu.forEach((item) => {
+          // 构造权限列表
           const obj = {
             originId: value.id,
             originName: value.name,
@@ -30,7 +30,6 @@ export default {
         });
       });
       this.authPermission.push(...authPermission);
-      console.log(this.authPermission);
     }
   }
 };

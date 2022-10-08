@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     Work: typeof import('./src/components/work/index.vue')['default']
     WorkDesc: typeof import('./src/components/work/components/workDesc.vue')['default']
     WorkEdit: typeof import('./src/components/work/components/workEdit.vue')['default']
-    WorkList: typeof import('./src/components/work/components/WorkList.vue')['default']
+    WorkHeader: typeof import('./src/components/work/components/workHeader.vue')['default']
+    WorkList: typeof import('./src/components/work/components/workList.vue')['default']
   }
 }
