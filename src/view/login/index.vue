@@ -22,6 +22,19 @@
           <div class="login-wrapper-container-form-link">
             <el-link href="#" type="primary">忘记密码</el-link>
           </div>
+          <el-form-item prop="captcha" label="验证码">
+            <el-input v-model="loginForm.captcha" placeholder="请输入验证码"></el-input>
+          </el-form-item>
+          <div id="abc">
+            <!--<img src="http://119.29.157.231:8888/admin/users/captcha"-->
+            <!--     onclick="javascript:this.src=this.src+'?'+Math.random()" />-->
+
+            <!--问题代码在此-->
+            <button @click="getCode">获取图形码</button>
+            <img :src="img" alt="">
+
+            <!--<el-image style="width: 100px; height: 100px" :src="captchaUrl" fit="fill" />-->
+          </div>
           <el-button type="primary" @click="login">登录</el-button>
         </el-form>
       </div>
@@ -33,14 +46,25 @@
 import userStore from '@/store/user';
 import router from '@/router';
 
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { loginReq } from './api';
+
+// const captchaUrl = ref('http://119.29.157.231:8888/admin/users/captcha?1'); // 验证码地址
+
+// 问题代码在此
+const img = ref(''); // 验证码图片
+const getCode = async () => {
+  let i = 0;
+  i++;
+  img.value = `http://119.29.157.231:8888/admin/users/captcha?${i}`;
+};
 
 const store = userStore();
 const login = async () => {
   const res = await loginReq({
     username: loginForm.username,
     password: loginForm.password,
+    captcha: loginForm.captcha,
   });
   // 请求失败
   if (!res) return;
@@ -53,6 +77,7 @@ const login = async () => {
 const loginForm = reactive({
   username: '',
   password: '',
+  captcha: '',
 });
 
 const rules = reactive({
