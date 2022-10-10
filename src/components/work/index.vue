@@ -1,5 +1,5 @@
 <script setup>
-import { getWorklist } from './api';
+import { postGetWorklist } from './api';
 import workStore from '@/store/work';
 import WorkDesc from './components/workDesc.vue';
 import WorkEdit from './components/workEdit.vue';
@@ -22,17 +22,21 @@ const workList = reactive(store.getWorklist);
 const workDetails = reactive(JSON.parse(JSON.stringify(workList[0] || {})));
 
 // 挂载发起请求
-onBeforeMount(() => {
-  getWorklist();
-  console.log('1212121');
+onBeforeMount(async () => {
+  await postGetWorklist();
 });
 
+// 向desc组件传递id
+const id = reactive({ id: 1 });
+
 // 点击作业列表
-const clickWorkList = (id, data) => {
+const clickWorkList = (clickId, data) => {
+  id.id = clickId;
   // 更换显示的作业item
   Object.assign(workDetails, data);
 };
 </script>
+
 <template>
   <div>
     <div class="work-wrapper">
@@ -46,6 +50,11 @@ const clickWorkList = (id, data) => {
         <div class="work-wrapper-main-worklist">
           <el-timeline>
             <el-scrollbar class="work-wrapper-main-worklist-scrollbar">
+              <el-empty
+                :image-size="200"
+                description="数据请求中..."
+                v-if="!workList.length"
+              />
               <WorkList
                 v-for="item in workList"
                 :key="item.id"
@@ -59,8 +68,11 @@ const clickWorkList = (id, data) => {
         <!--右侧-->
         <div class="work-wrapper-main-workdesc">
           <div>
-            <!--编辑与删除按钮-->
-            <WorkDesc :data="workDetails" v-show="workDetails.id"></WorkDesc>
+            <WorkDesc
+              :data="workDetails"
+              :id="id"
+              v-show="workDetails.id"
+            ></WorkDesc>
           </div>
         </div>
       </el-container>

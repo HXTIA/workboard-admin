@@ -1,11 +1,5 @@
 <template>
   <div class="login-wrapper">
-    <!-- <<<<<<< HEAD
-    <button @click="login">登录</button>
-    <button @click="getCode">获取图形码</button>
-    <input type="text" v-model="captcha" />
-    <img :src="img" />
-======= -->
     <div class="login-wrapper-img">
       <el-image :src="require('../../assets/hx.jpg')" fit="fill" />
     </div>
@@ -43,14 +37,12 @@
             ></el-input>
           </el-form-item>
           <div id="abc">
-            <!--<img src="http://119.29.157.231:8888/admin/users/captcha"-->
-            <!--     onclick="javascript:this.src=this.src+'?'+Math.random()" />-->
-
-            <!--问题代码在此-->
             <button @click="getCode">获取图形码</button>
-            <img :src="img" alt="" />
-
-            <!--<el-image style="width: 100px; height: 100px" :src="captchaUrl" fit="fill" />-->
+            <el-image
+              style="width: 200px; height: 100px"
+              :src="captchaUrl"
+              fit="fill"
+            />
           </div>
           <el-button type="primary" @click="login">登录</el-button>
         </el-form>
@@ -62,31 +54,20 @@
 <script setup>
 import userStore from '@/store/user';
 import router from '@/router';
+import request from '@/services';
 
-import { reactive, ref } from 'vue';
 import { loginReq } from './api';
 
-// <<<<<<< HEAD
-// // eslint-disable-next-line prefer-const
-// let captcha = ref();
-const img = ref('');
-// =======
 // const captchaUrl = ref('http://119.29.157.231:8888/admin/users/captcha?1'); // 验证码地址
 
 const store = userStore();
 
 const login = async () => {
-  // <<<<<<< HEAD
-  //   console.log(captcha.value);
-  //   const res = await loginReq({
-  //     username: 'sg@qq.com',
-  //     password: '1',
-  //     captcha: captcha.value
-  // =======
   const res = await loginReq({
     username: loginForm.username,
     password: loginForm.password,
-    captcha: loginForm.captcha
+    captcha: loginForm.captcha,
+    verifyKey: loginForm.verifyKey
   });
   // 请求失败
   if (!res) return;
@@ -95,17 +76,22 @@ const login = async () => {
   router.push({ path: '/', replace: true });
 };
 
-// <<<<<<< HEAD
+const captchaUrl = ref('');
 let i = 0;
-const getCode = (e) => {
+const getCode = async (e) => {
   e.preventDefault();
-
-  img.value = `http://119.29.157.231:8888/admin/users/captcha?${i++}`;
+  const res = await request({
+    url: `/admin/users/captcha?${i++}`,
+    method: 'GET'
+  });
+  captchaUrl.value = res.base64image;
+  loginForm.verifyKey = res.verifyKey;
 };
 const loginForm = reactive({
   username: '',
   password: '',
-  captcha: ''
+  captcha: '',
+  verifyKey: ''
 });
 
 const rules = reactive({

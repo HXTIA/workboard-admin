@@ -25,8 +25,6 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed, defineEmits } from 'vue';
-
 const props = defineProps({
   fileList: {
     type: Array,
@@ -43,7 +41,7 @@ const filelist = computed(() => {
   temp.forEach((value, i) => {
     const obj = {
       name: i,
-      url: value
+      url: `http://119.29.157.231:8888/${value}`
     };
     object.push(obj);
   });
@@ -51,7 +49,6 @@ const filelist = computed(() => {
 });
 
 const files = [];
-
 // 文件上传
 const upload = (file) => {
   files.push(file.file);

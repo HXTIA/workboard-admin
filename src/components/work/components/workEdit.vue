@@ -38,7 +38,7 @@
           </el-form-item>
           <el-form-item label="上传图片">
             <Uploader
-              :fileList="form.pictureFiles"
+              :fileList="form.pictures"
               @upload="upload"
               @delete="deletePic"
             ></Uploader>
@@ -58,8 +58,8 @@
 
 <script setup>
 import { courseClass } from '@/data/work.js';
-import Uploader from '@/components/shared/Uploader.vue';
-import { reactive, defineProps, inject, watchEffect } from 'vue';
+import Uploader from '@/components/shared/Uploader/index.vue';
+import { postCreateWork, postEditWork } from '../api';
 
 const props = defineProps({
   data: {
@@ -98,7 +98,7 @@ watchEffect(() => {
     Object.assign(form, JSON.parse(JSON.stringify(props.data)));
     // 创建最新的对标集合
     matchMap = new Map();
-    props.data.pictureFiles.forEach((value) => matchMap.set(value, 0));
+    props.data.pictures.forEach((value) => matchMap.set(value, 0));
   }
 });
 
@@ -114,18 +114,26 @@ const deletePic = (index, url) => {
   // 更改对标数组
   matchMap.set(url, 1);
   // 删除图片列表
-  form.pictureFiles.splice(index, 1);
+  form.pictures.splice(index, 1);
 };
 
 // 提交作业 -> 手动请求
 const onSubmit = async () => {
-  // const res = await request({
-  //   url: 'http://119.29.157.231:8888/admin/works/create'
-  // });
-  // console.log(res);
-  console.log(form);
+  // 无论是新建还是编辑都是需要先push进数组中
+  form.pictureFiles.splice(0, form.pictureFiles.length, ...files);
+  if (props.isCreate) {
+    // 新建作业
+    form.deadline = form.deadline.getTime();
+    // 发起请求
+    postCreateWork(form);
+  } else {
+    // 编辑作业：
+    // 1. 不更改图片 2. 更改图片
+    // 编辑图片的话要发起多图片编辑请求
+    postEditWork(form, matchMap);
+  }
 
-  form.pictureFiles.splice(0, form.pictureFiles.length);
+  // form.pictures.splice(0, form.pictures.length);
   changeIsShowDialog();
 };
 

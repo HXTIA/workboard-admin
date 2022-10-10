@@ -2,7 +2,7 @@ import request from '@/services';
 import 'element-plus/es/components/message/style/css';
 import { ElMessage } from 'element-plus';
 
-export const loginReq = async ({ username, password, captcha }) => {
+export const loginReq = async ({ username, password, captcha, verifyKey }) => {
   const res = await request({
     url: '/admin/users/login',
     method: 'POST',
@@ -10,6 +10,7 @@ export const loginReq = async ({ username, password, captcha }) => {
       username,
       password,
       captcha,
+      verifyKey
     },
   });
 
