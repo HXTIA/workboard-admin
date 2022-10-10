@@ -1,155 +1,129 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-wrapper-img">
-      <el-image :src="require('../../assets/hx.jpg')" fit="fill" />
-    </div>
-    <div class="login-wrapper-container">
-      <div class="login-wrapper-container-title">Sign in to WorkBoard</div>
-      <div class="login-wrapper-container-form">
-        <el-form
-          :model="loginForm"
-          :rules="rules"
-          ref="loginData"
-          label-width="0px"
-          label-position="top"
-          :hide-required-asterisk="true"
+  <div class="loginMain-wrapper">
+    <div class="loginMain-wrapper-container">
+      <div class="loginMain-wrapper-container-left">
+        <div class="loginMain-wrapper-container-left-img">
+          <el-image :src="require('@/assets/hx.jpg')" fit="fill" />
+        </div>
+        <h2>欢迎使用</h2>
+        <h2>华信作业板管理端</h2>
+      </div>
+      <div class="loginMain-wrapper-container-right">
+        <el-tabs
+          v-model="tagIndex"
+          :stretch="true"
+          @tab-change="checkView(tagIndex)"
         >
-          <el-form-item prop="username" label="Email">
-            <el-input
-              v-model="loginForm.username"
-              placeholder="请输入邮箱"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password" label="Password">
-            <el-input
-              v-model="loginForm.password"
-              placeholder="请输入密码"
-              type="password"
-            ></el-input>
-          </el-form-item>
-          <div class="login-wrapper-container-form-link">
-            <el-link href="#" type="primary">忘记密码</el-link>
-          </div>
-          <el-form-item prop="captcha" label="验证码">
-            <el-input
-              v-model="loginForm.captcha"
-              placeholder="请输入验证码"
-            ></el-input>
-          </el-form-item>
-          <div id="abc">
-            <button @click="getCode">获取图形码</button>
-            <el-image
-              style="width: 200px; height: 100px"
-              :src="captchaUrl"
-              fit="fill"
-            />
-          </div>
-          <el-button type="primary" @click="login">登录</el-button>
-        </el-form>
+          <el-tab-pane label="登录" name="0" />
+          <el-tab-pane label="注册" name="1" />
+        </el-tabs>
+        <transition :duration="500" name="fade" mode="out-in">
+          <component
+            :is="loginView.component"
+            @registerSuccess="registerSuccess"
+            :registerSuccessData="registerSuccessData"
+          >
+          </component>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import userStore from '@/store/user';
-import router from '@/router';
-import request from '@/services';
+import login from './components/login.vue';
+import register from './components/register.vue';
+import { reactive, ref } from 'vue';
 
-import { loginReq } from './api';
+// 页面列表
+const loginList = reactive([
+  {
+    name: 'login',
+    component: markRaw(login)
+  },
+  {
+    name: 'register',
+    component: markRaw(register)
+  }
+]);
+const tagIndex = ref('0');
+// 当前页面
+const loginView = reactive({
+  component: loginList[0].component
+});
 
-// const captchaUrl = ref('http://119.29.157.231:8888/admin/users/captcha?1'); // 验证码地址
-
-const store = userStore();
-
-const login = async () => {
-  const res = await loginReq({
-    username: loginForm.username,
-    password: loginForm.password,
-    captcha: loginForm.captcha,
-    verifyKey: loginForm.verifyKey
-  });
-  // 请求失败
-  if (!res) return;
-  // 存储token -> 要存储个人信息 -> 所以token先做临时
-  store.setUserInfo(res.token);
-  router.push({ path: '/', replace: true });
+// 切换页面
+const checkView = (index) => {
+  loginView.component = loginList[index].component;
 };
-
-const captchaUrl = ref('');
-let i = 0;
-const getCode = async (e) => {
-  e.preventDefault();
-  const res = await request({
-    url: `/admin/users/captcha?${i++}`,
-    method: 'GET'
-  });
-  captchaUrl.value = res.base64image;
-  loginForm.verifyKey = res.verifyKey;
-};
-const loginForm = reactive({
+// 注册成功返回的登录数据
+const registerSuccessData = reactive({
   username: '',
   password: '',
   captcha: '',
   verifyKey: ''
 });
-
-const rules = reactive({
-  username: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' }
-  ],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' }
-    // { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' },
-  ]
-});
+// 注册成功后跳转到登录页面
+const registerSuccess = (username, password) => {
+  tagIndex.value = '0';
+  checkView(0);
+  registerSuccessData.username = username;
+  registerSuccessData.password = password;
+};
 </script>
 
 <style lang="scss" scoped>
-.login-wrapper {
-  width: 100%;
+.loginMain-wrapper {
+  min-width: 100vh;
   height: 100%;
-
-  &-img {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-
-    .el-image {
-      width: 100px;
-      height: 100px;
-    }
-  }
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #f7d1d7, #bfe3f1);
 
   &-container {
-    width: 100%;
+    width: 900px;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    box-shadow: 2px 1px 19px #0000001a;
+    padding: 20px;
 
-    &-title {
-      font-size: 20px;
-      font-weight: bold;
+    &-left {
+      width: 50%;
+      height: 100%;
       text-align: center;
-      margin-bottom: 20px;
+
+      &-img {
+        width: 100%;
+        height: 100%;
+
+        .el-image {
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+        }
+      }
     }
 
-    &-form {
-      width: 300px;
-      margin: 0 auto;
-      padding: 16px;
-      background-color: #f6f8fa;
-      border: #d5dbe2 solid 1px;
-      border-radius: 6px;
-
-      &-link {
-        text-align: right;
-        margin-bottom: 16px;
-      }
-
-      .el-button {
-        width: 100%;
-      }
+    &-right {
+      width: 50%;
+      height: 100%;
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
