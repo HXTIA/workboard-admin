@@ -47,7 +47,12 @@
             <el-input v-model="form.detail" type="textarea" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">Create</el-button>
+            <el-button
+              type="primary"
+              @click="onSubmit"
+              v-permission="{ action: 'create', effect: 'disabled' }"
+              >Create</el-button
+            >
             <el-button @click="onCancel">Cancel</el-button>
           </el-form-item>
         </el-form>
@@ -80,10 +85,10 @@ const changeIsShowDialog = inject('changeIsShowDialog');
 // 表单
 const form = reactive({
   title: '',
-  courseId: '',
+  courseId: 1,
   detail: '',
   deadline: '',
-  semesterId: '',
+  semesterId: 1,
   pictureFiles: []
 });
 
@@ -98,7 +103,9 @@ watchEffect(() => {
     Object.assign(form, JSON.parse(JSON.stringify(props.data)));
     // 创建最新的对标集合
     matchMap = new Map();
-    props.data.pictures.forEach((value) => matchMap.set(value, 0));
+    props.data.pictures.forEach((value) =>
+      matchMap.set(`http://119.29.157.231:8888/${value}`, 0)
+    );
   }
 });
 

@@ -34,6 +34,8 @@ const props = defineProps({
 
 const emits = defineEmits(['upload', 'delete']);
 
+const files = [];
+
 const filelist = computed(() => {
   // 要对照片数组进行处理
   const temp = props.fileList;
@@ -45,14 +47,16 @@ const filelist = computed(() => {
     };
     object.push(obj);
   });
+
+  // 清空file数组
+  files.splice(0, files.length);
+
   return object;
 });
 
-const files = [];
 // 文件上传
 const upload = (file) => {
   files.push(file.file);
-  console.log(files);
   emits('upload', files);
 };
 
@@ -77,7 +81,9 @@ const handlePictureCardRemove = (e) => {
     emits('upload', files);
   } else {
     // 删掉的是原图片
-    const index = props.fileList.findIndex((value) => value === e.url);
+    const index = props.fileList.findIndex(
+      (value) => `http://119.29.157.231:8888/${value}` === e.url
+    );
     emits('delete', index, e.url);
   }
 };

@@ -3,11 +3,15 @@ export default {
   state: () => ({
     authRoutes: [],
     authPermission: [],
-    token: ''
+    token: '',
+    userInfo: {},
+    roles: []
   }),
   getters: {
     getRoutes: (state) => state.authRoutes || [],
     getToken: (state) => state.token || getStorage('token'),
-    getAuthPermission: (state) => state.authPermission || []
+    getAuthPermission: (state) => state.authPermission || [],
+    getUserInfo: () => getStorage('userInfo') || {},
+    getRoles: () => getStorage('roles') || [],
   }
 };

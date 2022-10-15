@@ -3,14 +3,18 @@ import { handleRoutes } from '@/utils/routes';
 import 'element-plus/es/components/message/style/css';
 import { ElMessage } from 'element-plus';
 import { removeStorage } from '@/utils/cache';
-
 import request from '@/services';
 
 export const requestRoutes = async (store, router) => {
   // 请求路由表
+  // 根绝roleid
+  const roleIds = store.getRoles[0].id;
   const res = await request({
-    url: '/admin/resources/searchList',
+    url: '/admin/resources/searchMenu',
     method: 'GET',
+    params: {
+      roleIds
+    }
   });
 
   // 据返回值进行判断

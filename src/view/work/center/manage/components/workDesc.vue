@@ -1,5 +1,5 @@
 <template>
-  <div class="workdesc-wrapper">
+  <div class="workdesc-wrapper" v-if="id.id">
     <div class="work-wrapper-main-button_group">
       <el-button type="primary" round @click="editWork">编辑</el-button>
       <el-button type="danger" round @click="deleteCard">删除</el-button>
@@ -54,22 +54,20 @@
 
 <script setup>
 import { timeFormat } from '@/utils/format/index.js';
-import { postDeleteWork } from '../api';
-import workEdit from '@/components/work/components/workEdit';
+import { postDeleteWork, getDataByID } from '../api';
+import workEdit from './workEdit.vue';
 
 const props = defineProps({
-  data: {
-    type: Object,
-    default: () => {}
-  },
   id: {
     type: Object,
     default: () => {}
   }
 });
+
+const data = reactive({});
 watchEffect(async () => {
-  // const res = await getDataByID(props.id.id);
-  // console.log(res);
+  const res = await getDataByID(props.id.id);
+  Object.assign(data, res);
 });
 
 // eslint-disable-next-line prefer-const
@@ -89,7 +87,7 @@ const editWork = () => {
 
 // 删除
 const deleteCard = () => {
-  postDeleteWork(props.data.id);
+  postDeleteWork(props.id.id);
 };
 </script>
 

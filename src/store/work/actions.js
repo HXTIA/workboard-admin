@@ -1,8 +1,10 @@
 export default {
   actions: {
-    setWorklist(data) {
+    setWorklist({ data, count }) {
       this.clearWorklist();
+      data.reverse();
       this.worklist.push(...data);
+      this.count = count;
     },
     clearWorklist() {
       const length = this.worklist.length;

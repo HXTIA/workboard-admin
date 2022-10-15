@@ -42,7 +42,7 @@ http.interceptors.response.use(
     // 做出提示
     if (response.code === http.httpCode.SUCCESS) {
       ElMessage.success({
-        message: res.data.msg || '请求成功!'
+        message: res.data.msg || '数据链路请求成功!'
       });
     }
     return Promise.resolve(res);
@@ -50,7 +50,7 @@ http.interceptors.response.use(
   (err) => {
     // 错误
     const res = err.response;
-    console.log('service error: ' + res);
+    console.log('service error: ' + err.response, err);
     ElMessage.error({
       message: res.data.msg || '出现错误!'
     });

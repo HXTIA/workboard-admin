@@ -13,15 +13,9 @@
         <el-button @click="search" @keydown.enter="search">搜索</el-button>
       </template>
     </el-input>
+    <el-button type="primary" size="large" @click="filter">筛选</el-button>
     <el-button
-      v-if="permisssonList.length"
-      type="primary"
-      size="large"
-      @click="filter"
-      >筛选</el-button
-    >
-    <el-button
-      v-if="permisssonList.length"
+      v-permission="{ action: 'create', effect: 'disabled' }"
       type="primary"
       size="large"
       @click="create"
@@ -31,7 +25,6 @@
 </template>
 
 <script setup>
-import { getAuthPermission } from '../api';
 import { copy } from '@/utils/shared/dash.js';
 
 const props = defineProps({
@@ -46,9 +39,6 @@ const cacheData = copy(props.data);
 
 // 控制关闭模态框
 const changeIsShowDialog = inject('changeIsShowDialog');
-
-// 取出在header应该存在的功能 -> 添加作业
-const permisssonList = getAuthPermission().filter((value) => value.id === 38);
 
 // 查询字符串
 // eslint-disable-next-line prefer-const

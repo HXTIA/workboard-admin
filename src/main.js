@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import stores from 'store';
+import plugin from '@/plugins';
 
 const app = createApp(App);
 
@@ -15,4 +16,5 @@ app
 // .use(ElementPlus)
   .use(router)
   .use(stores)
+  .use(plugin)
   .mount('#app');

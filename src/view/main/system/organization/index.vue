@@ -1,7 +1,12 @@
 <template>
-  <div>组织</div>
+  <div class="organization-wrapper">
+    <input type="text" />
+  </div>
 </template>
 
 <script setup></script>
 
-<style></style>
+<style lang="scss" scoped>
+.organization-wrapper {
+}
+</style>

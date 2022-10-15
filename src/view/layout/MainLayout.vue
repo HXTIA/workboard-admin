@@ -12,13 +12,18 @@
         </el-aside>
 
         <!--右侧-->
-        <el-main>
+        <el-main class="el-main">
           <!-- 缓存页面 -->
-          <router-view v-slot="{ Component }">
-            <KeepAlive>
-              <component :is="Component"></component>
-            </KeepAlive>
-          </router-view>
+          <div class="el-main-bread">
+            <breadCrumb></breadCrumb>
+          </div>
+          <div class="el-main-routerView">
+            <router-view v-slot="{ Component }">
+              <KeepAlive>
+                <component :is="Component"></component>
+              </KeepAlive>
+            </router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -26,6 +31,8 @@
 </template>
 <script setup>
 import Menu from '@/components/menu/index.vue';
+import breadCrumb from '@/components/breadCrumb/index.vue';
+
 import { computed } from 'vue';
 import userStore from '@/store/user';
 
@@ -43,6 +50,12 @@ const menuItems1 = [
     uri: '/AboutUs',
     icon: 'User',
     name: '关于我们'
+  },
+  {
+    id: '62',
+    uri: '/userInfo',
+    icon: 'User',
+    name: '个人信息'
   }
 ];
 // 目录数据
@@ -61,7 +74,7 @@ const menuItems = computed(() => {
   return menuItems1;
 });
 </script>
-<style scoped>
+<style scoped lang="scss">
 .layout-wrapper {
   width: 100vw;
   height: 100vh;
@@ -74,5 +87,13 @@ const menuItems = computed(() => {
   color: #000;
   line-height: 60px;
   border-bottom: 1px solid #ebeef5;
+}
+
+.el-main {
+  &-bread {
+    margin: 5px;
+    padding: 5px;
+    border-bottom: 1px solid rgb(228, 227, 227);
+  }
 }
 </style>
