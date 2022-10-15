@@ -1,5 +1,5 @@
 <template>
-  <div class="workdesc-wrapper">
+  <div class="workdesc-wrapper" v-if="id.id">
     <div class="work-wrapper-main-button_group">
       <el-button type="primary" round @click="editWork">编辑</el-button>
       <el-button type="danger" round @click="deleteCard">删除</el-button>
@@ -8,7 +8,7 @@
       <template #header>
         <div>
           <span class="main_card_time"
-            >发布于：{{ timeFormat(data.time) }}</span
+            >发布于：{{ timeFormat(data.updatedAt || data.createdAt) }}</span
           >
           <h3>{{ data.title }}</h3>
         </div>
@@ -24,9 +24,9 @@
       <br />
       <div class="main_image_group">
         <el-image
-          v-for="(url, index) in data.pictureFiles"
+          v-for="(url, index) in data.pictures"
           :key="index"
-          :src="url"
+          :src="`http://119.29.157.231:8888/${url}`"
           fit="contain"
         />
       </div>
@@ -53,15 +53,21 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
 import { timeFormat } from '@/utils/format/index.js';
-import workEdit from '@/components/work/components/workEdit';
+import { postDeleteWork, getDataByID } from '../api';
+import workEdit from './workEdit.vue';
 
 const props = defineProps({
-  data: {
+  id: {
     type: Object,
     default: () => {}
   }
+});
+
+const data = reactive({});
+watchEffect(async () => {
+  const res = await getDataByID(props.id.id);
+  Object.assign(data, res);
 });
 
 // eslint-disable-next-line prefer-const
@@ -70,6 +76,7 @@ const changeIsShowDialog = () => {
   isShowDialog.value = false;
 };
 
+// 注入变量控制dialog开合
 provide('isShowDialog', isShowDialog);
 provide('changeIsShowDialog', changeIsShowDialog);
 
@@ -80,7 +87,7 @@ const editWork = () => {
 
 // 删除
 const deleteCard = () => {
-  console.log('删除,通过id先删除本地-> 再删除远端请求', props.data);
+  postDeleteWork(props.id.id);
 };
 </script>
 

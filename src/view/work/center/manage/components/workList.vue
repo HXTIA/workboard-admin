@@ -1,6 +1,6 @@
 <template>
   <el-timeline-item
-    :timestamp="timeFormat(workList.time)"
+    :timestamp="timeFormat(workList.updatedAt || workList.createdAt)"
     :color="timelineColor[workList.id % timelineColor.length]"
     placement="top"
   >

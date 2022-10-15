@@ -15,8 +15,8 @@
           </el-form-item>
           <el-form-item label="作业学年">
             <el-select v-model="form.semesterId" placeholder="选择学期">
-              <el-option label="第一学期" value="1" />
-              <el-option label="第二学期" value="2" />
+              <el-option label="第一学期" :value="1" />
+              <el-option label="第二学期" :value="2" />
             </el-select>
           </el-form-item>
           <el-form-item label="截至日期">
@@ -37,32 +37,22 @@
             </el-select>
           </el-form-item>
           <el-form-item label="上传图片">
-            <el-upload
-              ref="uploadFile"
-              v-model="form.pictureFiles"
-              list-type="picture-card"
-              :http-request="upload"
-              :multiple="true"
-              :limit="6"
-              :on-preview="handlePictureCardPreview"
-            >
-              +
-            </el-upload>
-
-            <el-dialog v-model="dialogVisible">
-              <img
-                w-full
-                :src="dialogImageUrl"
-                class="dialogImage"
-                alt="Preview Image"
-              />
-            </el-dialog>
+            <Uploader
+              :fileList="form.pictures"
+              @upload="upload"
+              @delete="deletePic"
+            ></Uploader>
           </el-form-item>
           <el-form-item label="内容描述">
             <el-input v-model="form.detail" type="textarea" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">Create</el-button>
+            <el-button
+              type="primary"
+              @click="onSubmit"
+              v-permission="{ action: 'create', effect: 'disabled' }"
+              >Create</el-button
+            >
             <el-button @click="onCancel">Cancel</el-button>
           </el-form-item>
         </el-form>
@@ -72,11 +62,9 @@
 </template>
 
 <script setup>
-import 'element-plus/es/components/message/style/css';
-import 'element-plus/es/components/message-box/style/css';
 import { courseClass } from '@/data/work.js';
-import { reactive, defineProps, inject, watchEffect } from 'vue';
-// import request from '@/services';
+import Uploader from '@/components/shared/Uploader/index.vue';
+import { postCreateWork, postEditWork } from '../api';
 
 const props = defineProps({
   data: {
@@ -97,59 +85,69 @@ const changeIsShowDialog = inject('changeIsShowDialog');
 // 表单
 const form = reactive({
   title: '',
-  courseId: '',
+  courseId: 1,
   detail: '',
   deadline: '',
-  semesterId: '',
+  semesterId: 1,
   pictureFiles: []
 });
+
+// 对标数组
+// eslint-disable-next-line prefer-const
+let matchMap;
 
 // 监视数据变化 -> 理论上讲computed更好，暂时先在此处做临时
 watchEffect(() => {
   if (props.data.id) {
-    Object.assign(form, props.data);
+    // 先赋给form
+    Object.assign(form, JSON.parse(JSON.stringify(props.data)));
+    // 创建最新的对标集合
+    matchMap = new Map();
+    props.data.pictures.forEach((value) =>
+      matchMap.set(`http://119.29.157.231:8888/${value}`, 0)
+    );
   }
 });
 
-// eslint-disable-next-line prefer-const
-let dialogVisible = ref(false);
-
-// eslint-disable-next-line prefer-const
-let dialogImageUrl = ref('');
-
-// 预览图片
-const handlePictureCardPreview = (uploadFile) => {
-  dialogVisible.value = true;
-  dialogImageUrl.value = uploadFile.url;
+// 接收uploader数据
+const files = [];
+const upload = (data) => {
+  files.splice(0, files.length, ...data);
 };
 
-// 文件上传的模板实例
-const uploadFile = ref();
-
-// 存储二进制数据
-
-// eslint-disable-next-line prefer-const
-let files = [];
-// 存储formData
-// const formData = new FormData();
-
-const upload = (file) => {
-  files.push(file.file);
+// 由于子组件不可直接删除props数据，所以传递函数，在父组件进行删除
+// 此外由于触发此函数，说明该次行为是编辑作业，所以还要同时记录对标数组
+const deletePic = (index, url) => {
+  // 更改对标数组
+  matchMap.set(url, 1);
+  // 删除图片列表
+  form.pictures.splice(index, 1);
 };
 
 // 提交作业 -> 手动请求
 const onSubmit = async () => {
-  console.log(files);
-  // const res = await request({
-  //   url: 'http://119.29.157.231:8888/admin/works/create'
-  // });
-  // console.log(res);
-  console.log(props.isCreate);
+  // 无论是新建还是编辑都是需要先push进数组中
+  form.pictureFiles.splice(0, form.pictureFiles.length, ...files);
+  if (props.isCreate) {
+    // 新建作业
+    form.deadline = form.deadline.getTime();
+    // 发起请求
+    postCreateWork(form);
+  } else {
+    // 编辑作业：
+    // 1. 不更改图片 2. 更改图片
+    // 编辑图片的话要发起多图片编辑请求
+    postEditWork(form, matchMap);
+  }
+
+  // form.pictures.splice(0, form.pictures.length);
+  changeIsShowDialog();
 };
 
 // 取消
 const onCancel = () => {
-  changeIsShowDialog();
+  console.log(matchMap);
+  changeIsShowDialog(false);
 };
 </script>
 

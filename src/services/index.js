@@ -1,22 +1,24 @@
 import axios from 'axios';
 import userStore from 'store/user';
 import router from 'router';
+import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 
-const backendURL = 'http://localhost:8080/api';
+const backendURL = 'http://119.29.157.231:8888';
 
 // 创建axios实例
 const http = axios.create({
-  // baseURL: import.meta.env.VITE_BACKEND,
   baseURL: backendURL,
   timeout: 5000,
 });
 
 // 枚举状态码
 http.httpCode = {
-  SUCCESS: 200, // 成功
-  CREAETED: 201, // 创建成功
-  DELETEED: 204, // 删除成功
-  UNAUTHORIZED: 401, // 没有权限
+  SUCCESS: 1, // 成功
+  FAIL: 400, // 失败
+  UNAUTHORIZED: 401, // 没有权限，不存在token
+  TOKEN_TIMEOUT: 60002, // token 过期
+  NOFOUNDUSER: 50001 // 不存在该用户
 };
 
 // 请求拦截器
@@ -25,7 +27,7 @@ http.interceptors.request.use((config) => {
   const token = store.getToken;
 
   if (token) {
-    config.headers.common.Authorization = `Bearer ${token}`;
+    config.headers.common.token = token;
   }
   return config;
 });
@@ -34,17 +36,30 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (res) => {
     // OK
+    const response = res.data;
+    console.log(response);
+
+    // 做出提示
+    if (response.code === http.httpCode.SUCCESS) {
+      ElMessage.success({
+        message: res.data.msg || '数据链路请求成功!'
+      });
+    }
     return Promise.resolve(res);
   },
   (err) => {
     // 错误
     const res = err.response;
-    if (res.status === http.httpCode.UNAUTHORIZED) {
+    console.log('service error: ' + err.response, err);
+    ElMessage.error({
+      message: res.data.msg || '出现错误!'
+    });
+    if (res.data.code === http.httpCode.UNAUTHORIZED) {
     // 权限不够，返回登录页
-      router.push('/');
-      return Promise.reject(res);
+      router.push({ path: '/login' });
+      return Promise.resolve(res);
     }
-    return Promise.reject(err);
+    return Promise.resolve(res);
   }
 );
 

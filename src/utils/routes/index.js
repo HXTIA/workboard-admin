@@ -8,18 +8,23 @@ export const handleRoutes = (routes) => {
 // 处理路由组件引入
 function handleRoute(routes) {
   const Routes = [];
-  routes.map((value) => {
-    const route = {
-      path: value.uri,
-      name: value.name,
-      component: () => import(`@/view${value.uri}/index.vue`),
-    };
+  routes.forEach((value) => {
+    value.children && value.children.forEach((item) => {
+      const route = {
+        path: item.uri,
+        name: item.name,
+        meta: { permission: [] },
+        component: () => import(`@/view${item.uri}/index.vue`),
+      };
 
-    if (value.children && value.children[0].type !== 3) {
-      route.children = handleRoute(value.children);
-    }
-
-    return Routes.push(route);
+      if (item.children && item.children[0].type === 3) {
+        item.children.forEach((value) => {
+          const permission = value.permission.split(':')[1];
+          route.meta.permission.push(permission);
+        });
+      }
+      Routes.push(route);
+    });
   });
 
   return Routes;
