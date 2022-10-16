@@ -9,7 +9,7 @@ export default {
   }),
   getters: {
     getRoutes: (state) => state.authRoutes || [],
-    getToken: (state) => state.token || getStorage('token'),
+    getToken: (state) => getStorage('token') || '',
     getAuthPermission: (state) => state.authPermission || [],
     getUserInfo: () => getStorage('userInfo') || {},
     getRoles: () => getStorage('roles') || [],
