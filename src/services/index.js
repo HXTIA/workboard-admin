@@ -1,6 +1,6 @@
 import axios from 'axios';
-import userStore from 'store/user';
 import router from 'router';
+import { getStorage } from '@/utils/cache';
 import { ElMessage } from 'element-plus';
 import 'element-plus/es/components/message/style/css';
 
@@ -21,11 +21,12 @@ http.httpCode = {
   NOFOUNDUSER: 50001 // 不存在该用户
 };
 
+export const rootUrl = 'http://119.29.157.231:8888/';
+
 // 请求拦截器
 http.interceptors.request.use((config) => {
-  const store = userStore();
-  const token = store.getToken;
-
+  const token = getStorage('token');
+  console.log(token, 'token');
   if (token) {
     config.headers.common.token = token;
   }

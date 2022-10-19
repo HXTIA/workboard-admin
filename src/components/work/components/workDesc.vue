@@ -1,5 +1,5 @@
 <template>
-  <div class="workdesc-wrapper" v-if="id.id">
+  <div class="workdesc-wrapper" v-show="id.id">
     <div class="work-wrapper-main-button_group">
       <el-button type="primary" round @click="editWork">编辑</el-button>
       <el-button type="danger" round @click="deleteCard">删除</el-button>

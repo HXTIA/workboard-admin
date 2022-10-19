@@ -23,10 +23,10 @@ export const loginReq = async ({ username, password, captcha, verifyKey }) => {
   if (res.code !== 1) return { ok: false };
 
   // 存储token
-  userstore.setToken(res.data.token);
+  await userstore.setToken(res.data.token);
 
   // 存储登录时 的用户信息
-  userstore.setUserInfo(res.data);
+  await userstore.setUserInfo(res.data);
 
   // 通过id发起所有信息请求 -> 返回值为Boolean -> 是否完善信息
   const allInfo = await getUserInfo({ id: res.data.id });

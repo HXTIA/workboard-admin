@@ -1,14 +1,8 @@
 <template>
   <div class="workedit-wrapper">
     <div class="edit_dialog">
-      <el-dialog
-        v-model="showDialogForm"
-        title="作业管理"
-        width="90vw"
-        top="5vh"
-        :show-close="false"
-        :close-on-click-modal="false"
-      >
+      <el-dialog v-model="showDialogForm" title="作业管理" width="90vw" top="5vh" :show-close="false"
+        :close-on-click-modal="false">
         <el-form :model="form" label-width="120px">
           <el-form-item label="作业标题">
             <el-input v-model="form.title" />
@@ -20,39 +14,22 @@
             </el-select>
           </el-form-item>
           <el-form-item label="截至日期">
-            <el-date-picker
-              v-model="form.deadline"
-              type="datetime"
-              placeholder="选择截止日期"
-            />
+            <el-date-picker v-model="form.deadline" type="datetime" placeholder="选择截止日期" />
           </el-form-item>
           <el-form-item label="教学班级">
             <el-select v-model="form.courseId" placeholder="选择教学班">
-              <el-option
-                v-for="item in courseClass"
-                :key="item.courseId"
-                :label="item.name"
-                :value="item.courseId"
-              />
+              <el-option v-for="item in courseClass" :key="item.courseId" :label="item.name" :value="item.courseId" />
             </el-select>
           </el-form-item>
           <el-form-item label="上传图片">
-            <Uploader
-              :fileList="form.pictures"
-              @upload="upload"
-              @delete="deletePic"
-            ></Uploader>
+            <Uploader :fileList="form.pictures" @upload="upload" @delete="deletePic"></Uploader>
           </el-form-item>
           <el-form-item label="内容描述">
             <el-input v-model="form.detail" type="textarea" />
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              @click="onSubmit"
-              v-permission="{ action: 'create', effect: 'disabled' }"
-              >Create</el-button
-            >
+            <el-button type="primary" @click="onSubmit" v-permission="{ action: 'create', effect: 'disabled' }">Create
+            </el-button>
             <el-button @click="onCancel">Cancel</el-button>
           </el-form-item>
         </el-form>
@@ -64,16 +41,13 @@
 <script setup>
 import { courseClass } from '@/data/work.js';
 import Uploader from '@/components/shared/Uploader/index.vue';
-import { postCreateWork, postEditWork } from '../api';
+import { postEditWork } from '../api';
+import { rootUrl } from '@/services';
 
 const props = defineProps({
   data: {
     type: Object,
-    default: () => {}
-  },
-  isCreate: {
-    type: Boolean,
-    default: () => true
+    default: () => { }
   }
 });
 
@@ -84,11 +58,11 @@ const changeIsShowDialog = inject('changeIsShowDialog');
 
 // 表单
 const form = reactive({
-  title: '',
-  courseId: 1,
-  detail: '',
-  deadline: '',
-  semesterId: 1,
+  title: undefined,
+  courseId: undefined,
+  detail: undefined,
+  deadline: undefined,
+  semesterId: undefined,
   pictureFiles: []
 });
 
@@ -104,7 +78,8 @@ watchEffect(() => {
     // 创建最新的对标集合
     matchMap = new Map();
     props.data.pictures.forEach((value) =>
-      matchMap.set(`http://119.29.157.231:8888/${value}`, 0)
+
+      matchMap.set(rootUrl + value, 0)
     );
   }
 });
@@ -128,20 +103,29 @@ const deletePic = (index, url) => {
 const onSubmit = async () => {
   // 无论是新建还是编辑都是需要先push进数组中
   form.pictureFiles.splice(0, form.pictureFiles.length, ...files);
-  if (props.isCreate) {
-    // 新建作业
-    form.deadline = form.deadline.getTime();
-    // 发起请求
-    postCreateWork(form);
-  } else {
-    // 编辑作业：
-    // 1. 不更改图片 2. 更改图片
-    // 编辑图片的话要发起多图片编辑请求
-    postEditWork(form, matchMap);
-  }
+  // if (props.isCreate) {
+  //   // 新建作业
+  //   form.deadline = form.deadline.getTime();
+  //   // 发起请求
+  //   postCreateWork(form);
 
-  // form.pictures.splice(0, form.pictures.length);
-  changeIsShowDialog();
+  //   // form.pictures.splice(0, form.pictures.length);
+  //   changeIsShowDialog();
+  //   Object.keys(form).forEach((value) => {
+  //     const temp = form[value];
+  //     if (typeof temp === 'object') {
+  //       form[value] = [];
+  //     } else {
+  //       form[value] = undefined;
+  //     }
+  //   });
+  // } else {
+  // 编辑作业：
+  // 1. 不更改图片 2. 更改图片
+  // 编辑图片的话要发起多图片编辑请求
+  postEditWork(form, matchMap);
+  changeIsShowDialog(false);
+  // }
 };
 
 // 取消

@@ -46,5 +46,10 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Uploader: typeof import('./src/components/shared/Uploader/index.vue')['default']
+    WorkDesc: typeof import('./src/components/work/components/workDesc.vue')['default']
+    WorkEdit: typeof import('./src/components/work/components/workEdit.vue')['default']
+    WorkHeader: typeof import('./src/components/work/components/workHeader.vue')['default']
+    WorkList: typeof import('./src/components/work/components/workList.vue')['default']
+    WorkPublish: typeof import('./src/components/work/components/workPublish.vue')['default']
   }
 }

@@ -1,10 +1,14 @@
 <script setup>
 import { postGetWorklist } from './api';
 import workStore from '@/store/work';
-import WorkDesc from './components/workDesc.vue';
-import WorkEdit from './components/workEdit.vue';
-import WorkList from './components/workList.vue';
-import WorkHeader from './components/workHeader.vue';
+import WorkDesc from '@/components/work/components/workDesc.vue';
+import WorkList from '@/components/work/components/workList.vue';
+import WorkEdit from '@/components/work/components/workEdit.vue';
+import WorkHeader from '@/components/work/components/workHeader.vue';
+import WorkPublish from '@/components/work/components/workPublish.vue';
+
+// 标签页默认显示
+const activeName = ref('1');
 
 // eslint-disable-next-line prefer-const
 let isShowDialog = ref(false);
@@ -38,43 +42,38 @@ const clickWorkList = (clickId, data) => {
   <div>
     <div class="work-wrapper">
       <!--菜单栏-->
-      <el-header class="work-wrapper-header">
-        <WorkHeader :data="workList"></WorkHeader>
-      </el-header>
+      <el-tabs v-model="activeName" class="demo-tabs">
+        <el-tab-pane label="作业查看" name="1">
+          <el-header class="work-wrapper-header">
+            <WorkHeader :data="workList"></WorkHeader>
+          </el-header>
 
-      <el-container class="work-wrapper-main">
-        <!--左侧-->
-        <div class="work-wrapper-main-worklist">
-          <el-timeline>
-            <el-scrollbar class="work-wrapper-main-worklist-scrollbar">
-              <el-empty
-                :image-size="200"
-                description="数据请求中..."
-                v-if="!workList.length"
-              />
-              <WorkList
-                v-for="item in workList"
-                :key="item.id"
-                :workList="item"
-                @clickWork="clickWorkList"
-              ></WorkList>
-            </el-scrollbar>
-          </el-timeline>
-        </div>
+          <el-container class="work-wrapper-main">
+            <!--左侧-->
+            <div class="work-wrapper-main-worklist">
+              <el-timeline>
+                <el-scrollbar class="work-wrapper-main-worklist-scrollbar">
+                  <el-empty :image-size="200" description="数据请求中..." v-if="!workList.length" />
+                  <WorkList v-for="item in workList" :key="item.id" :workList="item" @clickWork="clickWorkList">
+                  </WorkList>
+                </el-scrollbar>
+              </el-timeline>
+            </div>
 
-        <!--右侧-->
-        <div class="work-wrapper-main-workdesc">
-          <div>
-            <WorkDesc :id="id"></WorkDesc>
-          </div>
-        </div>
-      </el-container>
-      <WorkEdit
-        :data="{}"
-        :isShowDialog="isShowDialog"
-        @changeIsShowDialog="changeIsShowDialog"
-        :isCreate="true"
-      ></WorkEdit>
+            <!--右侧-->
+            <div class="work-wrapper-main-workdesc">
+              <div>
+                <WorkDesc :id="id"></WorkDesc>
+              </div>
+            </div>
+            <WorkEdit :data="{}" :isShowDialog="isShowDialog" @changeIsShowDialog="changeIsShowDialog" :isCreate="true">
+            </WorkEdit>
+          </el-container>
+        </el-tab-pane>
+        <el-tab-pane label="发布作业" name="2">
+          <WorkPublish></WorkPublish>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -89,6 +88,7 @@ const clickWorkList = (clickId, data) => {
   &-main {
     display: flex;
     justify-content: flex-start;
+
     &-worklist {
       width: 50%;
       height: 100%;
@@ -96,7 +96,7 @@ const clickWorkList = (clickId, data) => {
       border-right: 1px solid #ebeef5;
 
       &-scrollbar {
-        height: 75vh;
+        height: 65vh;
       }
     }
 
